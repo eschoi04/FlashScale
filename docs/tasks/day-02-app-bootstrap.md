@@ -1,0 +1,15 @@
+- [x] `ticketing-api`에 독립적으로 실행 가능한 Spring Boot 프로젝트가 초기화되었다.
+- [x] Spring Actuator의 health endpoint가 정상 응답한다.
+- [x] Spring 애플리케이션의 기본 테스트가 통과한다.
+- [x] `predictor`에 독립적으로 실행 가능한 FastAPI 프로젝트가 초기화되었다.
+- [x] Predictor의 health endpoint가 정상 응답한다.
+- [x] FastAPI 애플리케이션의 기본 테스트가 통과한다.
+- [x] 두 애플리케이션의 로컬 실행 및 테스트 방법이 문서화되었다.
+- [x] 루트 `.gitignore`는 저장소 공통 산출물을, `ticketing-api`와 `predictor`의 `.gitignore`는 각 애플리케이션 전용 산출물을 제외하도록 책임이 분리되었다.
+- [x] 티켓팅 비즈니스 로직을 구현하지 않았다.
+- [x] PostgreSQL 연결을 추가하지 않았다.
+- [x] Spring과 Predictor 간 통신을 구현하지 않았다.
+- [x] ML 모델 학습 및 추론을 구현하지 않았다.
+- [x] Docker와 Docker Compose 구성을 추가하지 않았다.
+- [x] Kubernetes 구성을 추가하지 않았다.
+- [x] Day 3 범위인 `scripts/verify.sh`를 구현하지 않았다.

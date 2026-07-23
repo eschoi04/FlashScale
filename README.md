@@ -124,6 +124,70 @@ FlashScale/
 └── AGENTS.md             # Codex collaboration and change policy
 ```
 
+## Local Development
+
+Day 2 기준으로 `ticketing-api`와 `predictor`는 서로 통신하지 않으며 각각 독립적으로 실행할 수 있습니다.
+
+### Prerequisites
+
+- Java 17
+- Python 3.10 이상
+
+### Spring Boot Ticketing API
+
+저장소 루트에서 `ticketing-api`로 이동한 뒤 Gradle wrapper로 애플리케이션을 실행합니다.
+
+```bash
+cd ticketing-api
+./gradlew bootRun
+```
+
+기본 포트는 `8080`입니다. 다른 터미널에서 Actuator health endpoint를 확인합니다.
+
+```bash
+curl --fail http://localhost:8080/actuator/health
+```
+
+테스트는 다음 명령으로 실행합니다.
+
+```bash
+cd ticketing-api
+./gradlew test
+```
+
+### FastAPI Predictor
+
+저장소 루트에서 `predictor`로 이동해 가상환경을 만들고 런타임·테스트 의존성을 설치합니다.
+
+```bash
+cd predictor
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-test.txt
+```
+
+Uvicorn으로 Predictor를 실행합니다.
+
+```bash
+.venv/bin/python -m uvicorn app.main:app --reload
+```
+
+`app.main:app`은 `app/main.py` 모듈에 선언된 `app = FastAPI(...)` 객체를 실행한다는 뜻입니다. `--reload`는 개발 중 Python 파일이 변경되면 서버를 자동으로 다시 시작합니다.
+
+기본 포트는 `8000`입니다. 다른 터미널에서 health endpoint를 확인합니다.
+
+```bash
+curl --fail http://localhost:8000/health
+```
+
+테스트는 다음 명령으로 실행합니다.
+
+```bash
+cd predictor
+.venv/bin/python -m pytest
+```
+
+두 애플리케이션은 `Ctrl+C`로 종료할 수 있습니다.
+
 ## 30-Day Roadmap
 
 | Phase | Goal | Deliverable |
