@@ -246,6 +246,7 @@ Spring Boot 티켓팅 API, PostgreSQL, 동시 예약 방지, k6, Prometheus/Graf
 
 ## Documentation
 
+- [Development Log](https://velog.io/@eschoi04/series/spring-harness) — FlashScale의 설계·구현 과정과 일일 회고
 - [Project Charter](docs/project-charter.md) — 문제, 핵심 실험, 범위와 완료 기준
 - [Agent Guidelines](AGENTS.md) — Codex 작업 규칙, 검증 및 변경 정책
 - [Tasks](docs/tasks/) — 작업 범위, acceptance criteria와 완료 결과
