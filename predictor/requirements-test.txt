@@ -2,3 +2,4 @@
 
 httpx2
 pytest
+ruff

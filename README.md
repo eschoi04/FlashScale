@@ -155,6 +155,13 @@ cd ticketing-api
 ./gradlew test
 ```
 
+포맷 검사와 정적 분석을 포함한 Spring 검증은 다음 명령으로 실행합니다.
+
+```bash
+cd ticketing-api
+./gradlew spotlessCheck checkstyleMain checkstyleTest test
+```
+
 ### FastAPI Predictor
 
 저장소 루트에서 `predictor`로 이동해 가상환경을 만들고 런타임·테스트 의존성을 설치합니다.
@@ -187,6 +194,20 @@ cd predictor
 ```
 
 두 애플리케이션은 `Ctrl+C`로 종료할 수 있습니다.
+
+### 전체 검증
+
+Python 가상환경에 `requirements-test.txt`를 설치한 뒤, 저장소 루트의 스크립트 하나로 Spring과 Python의 포맷, 정적 분석/lint, 테스트를 모두 실행할 수 있습니다.
+
+```bash
+./scripts/verify.sh
+```
+
+스크립트는 자신의 파일 위치로 저장소 루트를 계산하므로 저장소 밖을 포함한 어느 작업 디렉터리에서도 절대 경로로 실행할 수 있습니다. `set -eu`를 사용하므로 검사 하나가 실패하거나 필요한 변수가 준비되지 않으면 즉시 0이 아닌 종료 코드로 끝납니다.
+
+Spring 포맷에는 Java 포맷을 자동화하는 Spotless와 Google Java Format을 사용하고, 정적 분석에는 Gradle의 표준 Java 품질 플러그인인 Checkstyle을 사용합니다. 포맷 대안으로 IDE별 설정만 공유하는 방식은 명령형 검증이 어렵고, 정적 분석 대안인 SpotBugs는 바이트코드 결함 분석에 더 적합해 현재 최소 부트스트랩에는 무겁다고 판단했습니다.
+
+Python은 Ruff 하나로 포맷 검사와 lint를 수행합니다. Black과 Flake8을 각각 두는 대안보다 설치할 도구와 설정 지점이 적으면서 두 검사를 별도 명령과 종료 코드로 유지할 수 있기 때문입니다.
 
 ## 30-Day Roadmap
 
