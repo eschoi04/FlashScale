@@ -15,6 +15,7 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - workflow 권한과 실행 파일 권한을 확인한다.
 - 로컬 통합 검증을 실행하고 CI에서 추가로 확인할 항목을 기록한다.
 - Pull Request 설명이 한글의 변경 사항, 변경 이유, 영향, 검증 순서를 따르도록 공통 템플릿을 추가한다.
+- Pull Request의 기본 base를 `main`으로 강제하고 생성 전 diff를 확인하는 저장소 규칙을 추가한다.
 
 ## 제외 범위
 
@@ -46,6 +47,9 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - [x] Day 4 회고가 실제 작업 및 검증 결과와 일치하게 작성되었다.
 - [x] 공통 Pull Request 템플릿이 변경 사항, 변경 이유, 영향, 검증 순서로 작성되었다.
 - [x] Day 4 Pull Request의 제목과 본문이 한글 형식으로 통일되었다.
+- [ ] Pull Request base 확인 규칙과 템플릿 체크 항목이 추가되었다.
+- [ ] `origin/main...HEAD` diff가 Day 4 범위와 일치한다.
+- [ ] `main`을 base로 하는 Day 4 Pull Request가 생성되었다.
 
 ## 검증 명령
 
@@ -61,6 +65,7 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - `.github/workflows/ci.yml`
 - `.github/pull_request_template.md`
 - `docs/retrospectives/day-04.md`
+- `AGENTS.md`
 
 ## 위험 요소
 
@@ -87,3 +92,4 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - Python 의존성이 버전 고정되지 않은 위험은 Day 4 범위 밖의 후속 작업으로 남겼다.
 - Day 4 회고에 실제 작업, 이해한 개념, 장애 해결 과정, 채택하지 않은 대안, 검증 결과와 후속 위험을 기록했다.
 - 이후 Pull Request가 같은 한글 구조를 사용하도록 공통 템플릿을 추가하고 Day 4 Pull Request에도 같은 형식을 적용했다.
+- 잘못된 base 선택의 재발을 막기 위해 `main` 기본 원칙, 예외 승인, PR 생성 직전 브랜치 및 diff 확인 규칙을 `AGENTS.md`와 PR 템플릿에 추가했다.

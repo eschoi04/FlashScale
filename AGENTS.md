@@ -48,6 +48,13 @@
 - 생성 파일과 빌드 산출물을 직접 수정하지 않는다.
 - 새로운 의존성은 꼭 필요한 경우에만 추가한다.
 
+## Git and Pull Requests
+
+- Pull Request의 기본 base는 원격 저장소의 기본 브랜치인 `main`으로 한다.
+- `main`이 아닌 브랜치를 base로 사용하려면 사용자의 명시적인 승인을 먼저 받는다.
+- Pull Request 생성 직전에 원격 기본 브랜치와 현재 브랜치를 다시 확인한다.
+- `origin/main...HEAD` diff로 변경 파일과 커밋 범위가 현재 task와 일치하는지 확인한 뒤 Pull Request를 생성한다.
+
 ## Definition of Done
 
 - task의 acceptance criteria가 충족되었다.
