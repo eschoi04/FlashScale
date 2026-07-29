@@ -62,6 +62,7 @@
 - Draft Pull Request #5에서 `Verify` job이 자동 시작되어 1분 7초 만에 통과했다.
 - 공통 PR 템플릿의 네 제목이 변경 사항, 변경 이유, 영향, 검증 순서로 정확히 배치되었음을 확인했다.
 - Draft Pull Request #5의 제목과 본문을 한글 형식으로 수정하고 네 섹션 순서를 템플릿과 일치시켰다.
+- 후속 `Verify` 실행 로그에서 Gradle wrapper와 dependency cache, pip cache가 모두 복원되었음을 확인했다.
 - `git diff --check`가 통과했다.
 
 ## 남은 위험
@@ -69,7 +70,6 @@
 - Python 의존성 버전이 고정되지 않아 외부 패키지 릴리스에 따라 같은 커밋의 설치 결과가 달라질 수 있다.
 - `ubuntu-latest` runner 이미지와 major tag로 지정한 GitHub Action 구현은 GitHub가 업데이트할 수 있다.
 - `workflow_dispatch`는 workflow가 기본 브랜치에 병합된 후 Actions UI에서 최종 확인해야 한다.
-- 첫 PR 실행은 cache를 저장하는 실행이므로 후속 실행에서 Gradle과 pip cache 복원 로그를 확인해야 한다.
 - `Verify`가 통과해도 branch protection에 required status check로 지정하지 않으면 실패한 PR의 병합을 GitHub가 자동으로 차단하지 않는다.
 
 ## 내일 첫 번째 작업

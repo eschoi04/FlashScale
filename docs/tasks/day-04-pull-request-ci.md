@@ -81,7 +81,8 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - workflow YAML 구문, 이벤트, 최소 권한, Java/Python 버전, cache 설정 및 단일 검증 명령을 정적으로 확인했다.
 - 로컬 `./scripts/verify.sh`에서 Spring 포맷·정적 분석·테스트, Python 포맷·lint·테스트가 모두 통과했다. Python 테스트는 1개가 통과했다.
 - Draft Pull Request #5를 생성했을 때 `Verify` job이 자동 실행되어 1분 7초 만에 통과했다.
-- 수동 실행 버튼 제공 여부와 Gradle 및 pip cache 복원 여부는 GitHub에서 추가로 확인해야 한다.
+- 후속 `Verify` 실행 로그에서 Gradle wrapper와 dependency cache, pip cache가 모두 복원되었음을 확인했다.
+- 수동 실행 버튼 제공 여부는 workflow가 기본 브랜치에 병합된 뒤 GitHub Actions UI에서 추가로 확인해야 한다.
 - CI를 병합 필수 조건으로 사용할 경우 저장소 branch protection에서 `Verify` check를 required status check로 별도 지정해야 한다.
 - Python 의존성이 버전 고정되지 않은 위험은 Day 4 범위 밖의 후속 작업으로 남겼다.
 - Day 4 회고에 실제 작업, 이해한 개념, 장애 해결 과정, 채택하지 않은 대안, 검증 결과와 후속 위험을 기록했다.
