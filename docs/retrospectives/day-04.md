@@ -18,6 +18,7 @@
 - 검증 단계가 별도 명령을 중복하지 않고 `./scripts/verify.sh`만 실행하도록 구성했다.
 - `scripts/verify.sh`의 로컬 실행 권한과 Git mode를 확인했다.
 - Day 4 전용 브랜치와 Draft Pull Request #5를 만들고 `Verify` job이 실제로 통과함을 확인했다.
+- Pull Request 제목과 설명의 언어 및 순서를 통일하기 위해 공통 한글 PR 템플릿을 추가했다.
 - Day 4 acceptance criteria를 실제 구현 및 검증 결과에 따라 갱신했다.
 
 ## 이해한 개념
@@ -29,12 +30,14 @@
 - CI와 로컬이 같은 검증 스크립트를 호출하면 검사 목록을 workflow에 다시 작성하지 않아도 된다. 검증 규칙 변경도 `verify.sh` 한 곳에서 관리할 수 있다.
 - `verify.sh`의 `set -eu`와 workflow의 기본 shell 실패 처리 덕분에 하위 검사 하나의 실패가 스크립트와 job의 실패로 연속 전파된다.
 - 후속 Day 브랜치를 이전 Day 브랜치에서 만들 때 PR base도 이전 Day 브랜치로 지정하면 현재 Day의 diff만 독립적으로 검토할 수 있다.
+- PR 템플릿은 구현 파일이 아니지만 변경 내용과 검증 근거를 같은 순서로 남겨 리뷰어의 탐색 비용을 줄이는 협업 인터페이스다.
 
 ## 막힌 부분과 해결 과정
 
 - 사용자가 지정한 `docs/templates/TASK_TEMPLATE.md`는 존재하지 않았다. 저장소를 검색해 실제 템플릿인 `docs/tasks/TASK_TEMPLATE.md`를 확인하고 그 구조를 사용했다.
 - 최초 로컬 `./scripts/verify.sh` 실행은 사용자 Gradle cache의 lock 파일에 대한 샌드박스 권한 오류로 실패했다. 승인된 환경에서 같은 명령을 다시 실행해 코드 문제가 아님을 구분하고 전체 검증 통과를 확인했다.
 - 처음에는 Day 3 브랜치에서 작업 파일을 만들었다. 커밋 전에 발견했기 때문에 변경을 잃지 않고 `agent/day-04-pull-request-ci` 브랜치를 새로 만들어 옮겼다.
+- 최초 Draft PR은 기존 한글 관례와 달리 영어 제목과 영어 섹션명을 사용했다. 공통 템플릿을 한글로 추가하고 기존 PR도 같은 형식으로 수정해 재발 가능성을 줄였다.
 - 새 브랜치 생성 시 `.git` 참조 쓰기가 샌드박스에서 제한되었다. 승인된 Git 명령으로 브랜치를 생성했다.
 - PR 생성 전 GitHub CLI 토큰이 만료되어 인증에 실패했다. 기기 인증으로 `eschoi04` 계정을 다시 연결한 뒤 push와 Draft PR 생성을 완료했다.
 - 로컬에서는 GitHub의 `pull_request` 이벤트와 runner 환경을 완전히 재현할 수 없다. Draft PR #5를 실제로 생성하고 `Verify` job이 1분 7초 만에 통과하는 것을 확인했다.
@@ -57,6 +60,8 @@
 - 로컬 `./scripts/verify.sh`에서 Spring 포맷, Checkstyle, 테스트가 통과했다.
 - 같은 로컬 검증에서 Ruff 포맷, lint와 Python 테스트 1개가 통과했다.
 - Draft Pull Request #5에서 `Verify` job이 자동 시작되어 1분 7초 만에 통과했다.
+- 공통 PR 템플릿의 네 제목이 변경 사항, 변경 이유, 영향, 검증 순서로 정확히 배치되었음을 확인했다.
+- Draft Pull Request #5의 제목과 본문을 한글 형식으로 수정하고 네 섹션 순서를 템플릿과 일치시켰다.
 - `git diff --check`가 통과했다.
 
 ## 남은 위험
