@@ -49,7 +49,7 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - [x] Day 4 Pull Request의 제목과 본문이 한글 형식으로 통일되었다.
 - [x] Pull Request base 확인 규칙과 템플릿 체크 항목이 추가되었다.
 - [x] `origin/main...HEAD` diff가 Day 4 범위와 일치한다.
-- [ ] `main`을 base로 하는 Day 4 Pull Request가 생성되었다.
+- [x] `main`을 base로 하는 Day 4 Pull Request가 생성되었다.
 
 ## 검증 명령
 
@@ -93,3 +93,4 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - Day 4 회고에 실제 작업, 이해한 개념, 장애 해결 과정, 채택하지 않은 대안, 검증 결과와 후속 위험을 기록했다.
 - 이후 Pull Request가 같은 한글 구조를 사용하도록 공통 템플릿을 추가하고 Day 4 Pull Request에도 같은 형식을 적용했다.
 - 잘못된 base 선택의 재발을 막기 위해 `main` 기본 원칙, 예외 승인, PR 생성 직전 브랜치 및 diff 확인 규칙을 `AGENTS.md`와 PR 템플릿에 추가했다.
+- `origin/main`에서 새 Day 4 브랜치를 만들고 base가 `main`인 Draft Pull Request #7을 생성했다. GitHub 응답에서 base, 변경 파일 5개와 삭제 0줄을 다시 확인했다.

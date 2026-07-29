@@ -67,6 +67,7 @@
 - Draft Pull Request #5의 제목과 본문을 한글 형식으로 수정하고 네 섹션 순서를 템플릿과 일치시켰다.
 - 후속 `Verify` 실행 로그에서 Gradle wrapper와 dependency cache, pip cache가 모두 복원되었음을 확인했다.
 - PR 생성 직전에 원격 기본 브랜치가 `main`인지 확인하고 `origin/main...HEAD` 변경 파일이 Day 4 범위와 일치함을 확인했다.
+- `origin/main`에서 새 Day 4 브랜치를 만든 뒤 Draft Pull Request #7의 base가 `main`이고 변경 파일 5개, 삭제 0줄임을 GitHub 응답에서 확인했다.
 - `git diff --check`가 통과했다.
 
 ## 남은 위험
