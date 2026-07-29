@@ -47,8 +47,8 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - [x] Day 4 회고가 실제 작업 및 검증 결과와 일치하게 작성되었다.
 - [x] 공통 Pull Request 템플릿이 변경 사항, 변경 이유, 영향, 검증 순서로 작성되었다.
 - [x] Day 4 Pull Request의 제목과 본문이 한글 형식으로 통일되었다.
-- [ ] Pull Request base 확인 규칙과 템플릿 체크 항목이 추가되었다.
-- [ ] `origin/main...HEAD` diff가 Day 4 범위와 일치한다.
+- [x] Pull Request base 확인 규칙과 템플릿 체크 항목이 추가되었다.
+- [x] `origin/main...HEAD` diff가 Day 4 범위와 일치한다.
 - [ ] `main`을 base로 하는 Day 4 Pull Request가 생성되었다.
 
 ## 검증 명령
