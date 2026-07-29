@@ -14,6 +14,7 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - workflow의 검증 단계에서 루트 `./scripts/verify.sh`만 호출한다.
 - workflow 권한과 실행 파일 권한을 확인한다.
 - 로컬 통합 검증을 실행하고 CI에서 추가로 확인할 항목을 기록한다.
+- Pull Request 설명이 한글의 변경 사항, 변경 이유, 영향, 검증 순서를 따르도록 공통 템플릿을 추가한다.
 
 ## 제외 범위
 
@@ -43,6 +44,8 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - [x] Day 4 제외 범위의 기능을 추가하지 않았다.
 - [x] GitHub Actions에서 추가로 확인할 사항이 기록되었다.
 - [x] Day 4 회고가 실제 작업 및 검증 결과와 일치하게 작성되었다.
+- [x] 공통 Pull Request 템플릿이 변경 사항, 변경 이유, 영향, 검증 순서로 작성되었다.
+- [x] Day 4 Pull Request의 제목과 본문이 한글 형식으로 통일되었다.
 
 ## 검증 명령
 
@@ -56,6 +59,7 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 
 - `docs/tasks/day-04-pull-request-ci.md`
 - `.github/workflows/ci.yml`
+- `.github/pull_request_template.md`
 - `docs/retrospectives/day-04.md`
 
 ## 위험 요소
@@ -81,3 +85,4 @@ Pull Request마다 GitHub Actions에서 저장소 루트의 `./scripts/verify.sh
 - CI를 병합 필수 조건으로 사용할 경우 저장소 branch protection에서 `Verify` check를 required status check로 별도 지정해야 한다.
 - Python 의존성이 버전 고정되지 않은 위험은 Day 4 범위 밖의 후속 작업으로 남겼다.
 - Day 4 회고에 실제 작업, 이해한 개념, 장애 해결 과정, 채택하지 않은 대안, 검증 결과와 후속 위험을 기록했다.
+- 이후 Pull Request가 같은 한글 구조를 사용하도록 공통 템플릿을 추가하고 Day 4 Pull Request에도 같은 형식을 적용했다.
