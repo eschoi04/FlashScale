@@ -1,0 +1,16 @@
+.dockerignore
+.git
+.gitattributes
+.gitignore
+.gradle
+.idea
+.project
+.settings
+.vscode
+HELP.md
+build
+gradlew.bat
+src/test
+config
+*.iml
+*.log

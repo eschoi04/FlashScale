@@ -1,0 +1,14 @@
+.dockerignore
+.git
+.gitignore
+.idea
+.pytest_cache
+.ruff_cache
+.venv
+.vscode
+__pycache__
+tests
+pyproject.toml
+requirements-test.txt
+*.log
+*.py[cod]
