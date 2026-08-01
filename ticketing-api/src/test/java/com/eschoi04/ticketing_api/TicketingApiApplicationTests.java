@@ -24,6 +24,7 @@ class TicketingApiApplicationTests {
     mockMvc
         .perform(get("/actuator/health"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.status").value("UP"));
+        .andExpect(jsonPath("$.status").value("UP"))
+        .andExpect(jsonPath("$.components.db.status").value("UP"));
   }
 }
