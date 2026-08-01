@@ -1,0 +1,43 @@
+services:
+  ticketing-api:
+    build:
+      context: ./ticketing-api
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/flashscale
+      SPRING_DATASOURCE_USERNAME: flashscale
+      SPRING_DATASOURCE_PASSWORD: flashscale-local
+    ports:
+      - "18080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  predictor:
+    build:
+      context: ./predictor
+      dockerfile: Dockerfile
+    ports:
+      - "18000:8000"
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: flashscale
+      POSTGRES_USER: flashscale
+      POSTGRES_PASSWORD: flashscale-local
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready --username "$${POSTGRES_USER}" --dbname "$${POSTGRES_DB}"
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  postgres-data:
