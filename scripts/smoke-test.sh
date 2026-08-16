@@ -71,6 +71,84 @@ if [ "${query_result}" != "1" ]; then
 fi
 echo "postgres: SELECT 1 returned ${query_result}"
 
+echo "==> Checking Flyway migration history"
+migration_count=$(compose exec --no-TTY postgres \
+	psql --username flashscale --dbname flashscale \
+	--tuples-only --no-align \
+	--command "SELECT COUNT(*) FROM flyway_schema_history WHERE version = '1' AND success;")
+if [ "${migration_count}" != "1" ]; then
+	echo "Unexpected successful V1 migration count: ${migration_count}" >&2
+	exit 1
+fi
+echo "Flyway V1 successful migration count: ${migration_count}"
+
+echo "==> Checking ticketing API flow"
+event_response=$(curl --fail --silent --show-error \
+	--header 'Content-Type: application/json' \
+	--data '{"name":"Compose Smoke Event","seatCount":2}' \
+	http://localhost:18080/api/events)
+case "${event_response}" in
+	*'"name":"Compose Smoke Event"'*'"seatCount":2'*) ;;
+	*)
+		echo "Unexpected event response: ${event_response}" >&2
+		exit 1
+		;;
+esac
+
+event_id=$(compose exec --no-TTY postgres \
+	psql --username flashscale --dbname flashscale \
+	--tuples-only --no-align \
+	--command "SELECT id FROM events WHERE name = 'Compose Smoke Event';")
+seat_id=$(compose exec --no-TTY postgres \
+	psql --username flashscale --dbname flashscale \
+	--tuples-only --no-align \
+	--command "SELECT id FROM seats WHERE event_id = ${event_id} ORDER BY seat_number LIMIT 1;")
+
+reservation_response=$(curl --fail --silent --show-error \
+	--header 'Content-Type: application/json' \
+	--data '{"customerId":"compose-smoke-user"}' \
+	"http://localhost:18080/api/events/${event_id}/seats/${seat_id}/reservations")
+case "${reservation_response}" in
+	*"\"seatId\":${seat_id}"*'"status":"RESERVED"'*) ;;
+	*)
+		echo "Unexpected reservation response: ${reservation_response}" >&2
+		exit 1
+		;;
+esac
+echo "event: ${event_response}"
+echo "reservation: ${reservation_response}"
+
+echo "==> Restarting ticketing-api and checking migration idempotency"
+compose restart ticketing-api
+attempt=0
+restarted_health=
+while [ "${attempt}" -lt 60 ]; do
+	restarted_health=$(curl --silent http://localhost:18080/actuator/health || true)
+	case "${restarted_health}" in
+		*'"status":"UP"'*) break ;;
+	esac
+
+	attempt=$((attempt + 1))
+	sleep 1
+done
+case "${restarted_health}" in
+	*'"status":"UP"'*) ;;
+	*)
+		echo "ticketing-api did not recover after restart: ${restarted_health}" >&2
+		exit 1
+		;;
+esac
+
+restarted_migration_count=$(compose exec --no-TTY postgres \
+	psql --username flashscale --dbname flashscale \
+	--tuples-only --no-align \
+	--command "SELECT COUNT(*) FROM flyway_schema_history WHERE version = '1' AND success;")
+if [ "${restarted_migration_count}" != "1" ]; then
+	echo "V1 migration was unexpectedly reapplied: ${restarted_migration_count}" >&2
+	exit 1
+fi
+echo "Flyway V1 count after restart: ${restarted_migration_count}"
+
 echo "==> Checking Compose service name resolution"
 compose exec --no-TTY predictor python -c \
 	"import socket; [socket.getaddrinfo(name, None) for name in ('ticketing-api', 'predictor', 'postgres')]"
